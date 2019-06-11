@@ -1,0 +1,14 @@
+# /lib/systemd/system/dispenser_bot.service
+[Unit]
+Description=Dispenser Bot Poller Service
+After=network.target 
+
+[Service]
+Type=simple
+Restart=on-failure
+Environment=RECEIVER_ADDR=127.0.0.1:5000
+ExecStart=/usr/local/bin/dispensebot_poller
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
